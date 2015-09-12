@@ -20,7 +20,7 @@ void setup(){
 void loop(){
   float cmMsec;
   long microsec = ultrasonic.timing();
-  
+  servo.write(90);
   for(i=0; i<10; i++){
     microsec = ultrasonic.timing();
     cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);
@@ -48,13 +48,25 @@ void loop(){
     
   }
   
-  Serial.print("Direita: ");
-  Serial.println(direita);
-  Serial.print("Esquerda: ");
-  Serial.println(esquerda);
+  if(direita > esquerda){
+    Serial.print("Direita melhor com ");
+    Serial.println(direita);
+    delay(100);
+  }else if(direita < esquerda){
+    Serial.print("Esquerda melhor com ");
+    Serial.println(esquerda);
+    delay(100);
+  }else{
+    Serial.println("Obstaculo nao encontrado.");
+  }
+  
+  //Serial.print("Direita: ");
+  //Serial.println(direita);
+  //Serial.print("Esquerda: ");
+  //Serial.println(esquerda);
   
   media = 0;
   esquerda = direita = 0;
   
-  delay(1000);
+  delay(500);
 }
